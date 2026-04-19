@@ -1,9 +1,9 @@
 # CS-499-CS-Capstone
 
-###### Guide:
-1. Professional Self-Assessment
-2. Associated Files & Links
-3. Screenshots of Project
+## Guide:
+###### 1. Professional Self-Assessment
+###### 2. Associated Files & Links
+###### 3. Screenshots of Project
 
 ## Professional Self-Assessment
 
