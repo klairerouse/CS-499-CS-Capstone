@@ -3,7 +3,7 @@
 ## Guide:
 ###### 1. Professional Self-Assessment
 ###### 2. Associated Files & Links
-###### 3. Screenshots of Project
+###### 3. Screenshots of Project (Original Artifact and Home & Austin Animal Page of Enhanced Artifact)
 
 ## Professional Self-Assessment
 
