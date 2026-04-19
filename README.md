@@ -47,5 +47,19 @@ Both the original project and enhanced artifact files can be found on the GitHub
 <img width="975" height="415" alt="image" src="https://github.com/user-attachments/assets/5976c078-472c-4636-9aa7-526cd02ed956" />
 <img width="975" height="383" alt="image" src="https://github.com/user-attachments/assets/fea49801-f954-4043-9f16-2aca89dd3577" />
 
+**Enhanced Artifact - Home Page**
+
+<img width="703" height="759" alt="image" src="https://github.com/user-attachments/assets/3c0fa6b0-9113-4754-9775-c0f17a65405b" />
+<img width="711" height="378" alt="image" src="https://github.com/user-attachments/assets/c1baabd0-abaa-4309-a39b-ee114530808a" />
+
+**Enhanced Artifact - Austin Animal Center Page**
+
+<img width="756" height="647" alt="image" src="https://github.com/user-attachments/assets/7eb91de5-8013-430b-9ada-1bfcfef74e2b" />
+<img width="744" height="519" alt="image" src="https://github.com/user-attachments/assets/872cacbb-6077-4273-aba9-657e9644750e" />
+
+
+
+
+
 
 
