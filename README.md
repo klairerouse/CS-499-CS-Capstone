@@ -5,7 +5,7 @@ Guide:
 2. Associated Files & Links
 3. Screenshots of Project
 
-##Professional Self-Assessment
+## Professional Self-Assessment
 
   During my time at SNHU, I have had the opportunity to expand upon my knowledge of mathematics and computer science. Within my mathematics-based courses, I strengthened my base knowledge of calculus, discrete math, and linear algebra, and was able to apply new skills in my statistics classes into real-world scenarios where I analyzed large datasets and provided recommendations on next steps based on business cases. For this degree, I have also taken a wide range of computer science classes that honed my ability to recognize requirements, design, implement and communicate projects from start to finish. After understanding and practicing foundational coursework regarding the SDLC, programming in Java, Python, C++, database manipulation with SQL, and presentation skills, I feel confident that I can transfer these capabilities to my current and future roles in the job market. 
 
@@ -27,7 +27,7 @@ Guide:
 
 Both the original project and enhanced artifact files can be found on the GitHub repository, in addition to the screenshots of those artifacts below.
 
-##Associated Files and Links
+## Associated Files and Links
 
 1. Code Review - Youtube video
 2. CS340 Original Artifact_KRouse
@@ -47,7 +47,7 @@ Both the original project and enhanced artifact files can be found on the GitHub
    
    vii.
 
-##Screenshots of Artifacts
+## Screenshots of Artifacts
 **Original Artifact**
 
 <img width="975" height="415" alt="image" src="https://github.com/user-attachments/assets/5976c078-472c-4636-9aa7-526cd02ed956" />
