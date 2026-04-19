@@ -15,15 +15,15 @@
 
   In each of the enhancements, I had several goals. The first enhancement goals which focused on Software Design and Engineering included porting over the existing code to HTML, JS, and CSS, modularizing the code, adding visuals to the UI that replicated the original user requirements, and adding CRUD capabilities. The second enhancement goals which focused on Algorithms and Data Structures included adding functional filters to the data, dynamic pie chart and map, and adding a dynamic search function that indexed the dataset of over 10,000 records. The last enhancement goals, which focused on Databases, included connecting a functional database to the website environment using MongoDB, and adding authentication and authorization to improve security and data integrity for the website and dataset. Through these enhancements, I was able to achieve all the course outcomes:
 
-•	“Design, develop, and deliver professional-quality oral, written, and visual communications that are coherent,     technically sound, and appropriately adapted to specific audiences and contexts” through the development of the enhancement plan and weekly project updates with documentation.
+- “Design, develop, and deliver professional-quality oral, written, and visual communications that are coherent,     technically sound, and appropriately adapted to specific audiences and contexts” through the development of the enhancement plan and weekly project updates with documentation.
 
-•	“Employ strategies for building collaborative environments that enable diverse audiences to support organizational decision making the field of computer science” through the development of user accessible edit, add, and delete options in the dashboard. 
+- “Employ strategies for building collaborative environments that enable diverse audiences to support organizational decision making the field of computer science” through the development of user accessible edit, add, and delete options in the dashboard. 
 
-•	“Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution, while managing the trade-offs involved in design choices” through the development of dynamic filter creation and adding “live” search functionality to the website.
+- “Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution, while managing the trade-offs involved in design choices” through the development of dynamic filter creation and adding “live” search functionality to the website.
 
-•	“Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals” through the implementation of the MEAN stack in full stack development. 
+- “Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals” through the implementation of the MEAN stack in full stack development. 
 
-•	“Develop a security mindset that anticipates adversarial exploits in software architecture and designs to expose potential vulnerabilities, mitigate design flaws, and ensure privacy and enhanced security of data and resources” through the addition of authentication and authorization processes utilizing token usage and login validation.
+- “Develop a security mindset that anticipates adversarial exploits in software architecture and designs to expose potential vulnerabilities, mitigate design flaws, and ensure privacy and enhanced security of data and resources” through the addition of authentication and authorization processes utilizing token usage and login validation.
 
 Both the original project and enhanced artifact files can be found on the GitHub repository, in addition to the screenshots of those artifacts below.
 
@@ -33,19 +33,13 @@ Both the original project and enhanced artifact files can be found on the GitHub
 2. CS340 Original Artifact_KRouse
 3. Narratives (Enhancement 1, 2, and 3)
 4. Final Capstone Project (had to break out into folders due to size)
-   i. app_admin/src
-   
-   ii. app_api
-   
-   iii. app_server
-   
-   iv. bin
-   
-   v. data
-
-   vi. public
-   
-   vii.
+- app_admin/src
+- app_api
+- app_server
+- bin
+- data
+- public
+- app.js, package-lock.json, package.json
 
 ## Screenshots of Artifacts
 **Original Artifact**
