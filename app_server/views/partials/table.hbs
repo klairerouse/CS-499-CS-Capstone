@@ -1,0 +1,151 @@
+        		<div class="search" id="filterDropdown">
+
+              <!-- radio buttons -->
+									
+							<input type="text" id="searchInput" placeholder="Search...">
+							<button type="button">&nbsp;</button>
+							<label><input type="radio" name="filter" id="all" value="all" checked> All</label>
+							<label><input type="radio" name="filter" id="waterrescue" value="waterrescue"> Water</label>
+							<label><input type="radio" name="filter" id="mtnwildrescue" value="mtnwildrescue"> Mountain or Wilderness</label>
+							<label><input type="radio" name="filter" id="disasterrescue" value="disasterrescue"> Disaster or Individual Tracking</label>
+								
+						</div>
+
+            <!-- admin buttons, have to be logged in for these to show up -->
+            <div id="admin-buttons" class="admin-buttons">
+              <button onclick="goToAdd()">Add Animal</button>
+              <button onclick="goToEdit()">Edit Animal</button>
+              <button onclick="goToDelete()">Delete Animal</button>
+            </div>
+
+          <!--table container, columns headers that show everything that was included in the original dashboard-->  					
+          <div class = "table-container">
+						
+							<table id="table" border="1">
+								<thead>
+									
+									<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+									<tr>
+										<th>Age Upon Outcome</th>
+										<th>Animal ID</th>
+										<th>Animal Type</th>
+										<th>Breed</th>
+										<th>Color</th>
+										<th>Date of Birth</th>
+										<th>Datetime</th>
+										<th>Monthyear</th>
+										<th>Name</th>
+										<th>Outcome Subtype</th>
+										<th>Outcome Type</th>
+										<th>Sex Upon Outcome</th>
+										<th>Location Lat</th>
+										<th>Location Long</th>
+										<th>Age Upon Outcome in weeks</th>
+									</tr> 
+								</thead>
+								<tbody id="table-body">
+								 </tbody>
+                        </table>
+					</div>
+
+<!--This script is to pull all of the animals into the table from the database-->
+<script>
+  let allAnimals = [];
+
+  function renderTable(data) {
+    const tableBody = document.getElementById("table-body");
+    tableBody.innerHTML = "";
+
+    data.forEach(animal => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${animal.age_upon_outcome || ""}</td>
+        <td>${animal.animal_id || ""}</td>
+        <td>${animal.animal_type || ""}</td>
+        <td>${animal.breed || ""}</td>
+        <td>${animal.color || ""}</td>
+        <td>${animal.date_of_birth || ""}</td>
+        <td>${animal.datetime || ""}</td>
+        <td>${animal.monthyear || ""}</td>
+        <td>${animal.name || ""}</td>
+        <td>${animal.outcome_subtype || ""}</td>
+        <td>${animal.outcome_type || ""}</td>
+        <td>${animal.sex_upon_outcome || ""}</td>
+        <td>${animal.location_lat || ""}</td>
+        <td>${animal.location_long || ""}</td>
+        <td>${animal.age_upon_outcome_in_weeks || ""}</td>
+      `;
+
+      tableBody.appendChild(row);
+    // this is so when you select a record, the map adjusts to that record's lat/long
+      row.style.cursor = "pointer";
+
+      row.addEventListener("click", () => {
+        if (window.focusMapOnAnimal) {
+          window.focusMapOnAnimal(animal);
+        }
+      });
+    });
+  }
+  
+  // based on the rendered data in the table, the pie chart and map updates (this is mostly for the dynamic filtering)
+  function renderData(data) {
+    renderTable(data);
+
+    if (window.updatePieChart) {
+      window.updatePieChart(data);
+    }
+
+    if (window.updateMapMarkers) {
+      window.updateMapMarkers(data);
+    }
+  }
+  
+  //in addition to the filters, users are able to search for any value in the table (in any case since I am converting everything to lower case)
+  function applySearch() {
+    const searchValue = document.getElementById("searchInput").value.toLowerCase();
+
+    const filteredAnimals = allAnimals.filter(animal => {
+      return Object.values(animal).some(value =>
+        value && value.toString().toLowerCase().includes(searchValue)
+      );
+    });
+
+    renderData(filteredAnimals);
+  }
+
+  //gets the animals based on the selected filter, searches within the pre-defined filters
+  async function loadData(filterType = "all") {
+    console.log("Calling API with:", filterType);
+
+    try {
+      const response = await fetch(`/aac/aac_animals?filter=${filterType}`);
+      allAnimals = await response.json();
+
+      applySearch();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  loadData();
+
+  //queries the filters via radio buttons, event listener
+  document.querySelectorAll('input[name="filter"]').forEach(radio => {
+    radio.addEventListener("change", () => {
+      const selected = document.querySelector('input[name="filter"]:checked').value;
+      console.log("Selected filter:", selected);
+      loadData(selected);
+    });
+  });
+
+  document.getElementById("searchInput").addEventListener("input", applySearch);
+</script>
+
+								
+								
+
+
+					

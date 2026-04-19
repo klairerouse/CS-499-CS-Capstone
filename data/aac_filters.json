@@ -1,0 +1,21 @@
+{
+    "waterrescue": {
+        "breed" : ["Lab", "chesa", "newfound"],
+        "sex_upon_outcome" : "Intact Female",
+        "age_upon_outcome_in_weeks": {"$gte":26.0, "$lte":156.0}
+
+    },
+    "mtnwildrescue": {
+        "breed" : ["german", "malamute", "sheepdog", "siberian", "rott"],
+        "sex_upon_outcome" : "Intact Male",
+        "age_upon_outcome_in_weeks": {"$gte":26.0, "$lte":156.0}
+
+    },
+    "disasterrescue": {
+        "breed" : ["dober", "german", "gold", "blood", "rott"],
+        "sex_upon_outcome" : "Intact Male",
+        "age_upon_outcome_in_weeks": {"$gte":20.0, "$lte":300.0}
+
+    },
+    "all": {}
+    }

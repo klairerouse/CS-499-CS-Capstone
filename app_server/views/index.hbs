@@ -1,0 +1,117 @@
+<!DOCTYPE html >
+<!--  Website template by freewebsitetemplates.com & modified by Klaire Rouse for this project  -->
+<html>
+
+<head>
+	<title>Gravioso Salvare</title>
+	<meta  charset=iso-8859-1" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+	<body>
+			
+			<div id="body">
+                    
+                    {{> header }}
+			
+					<div class="banner">&nbsp;</div>
+					
+			       <div id="content">
+				   
+				        <div class="content"> <!-- all images were sourced from the original free template or wikicommons, all articles are available with no paywall -->
+								<ul>
+									<li>
+										<a href="https://www.akc.org/expert-advice/puppy-information/new-puppy-checklist/"><img src="images/puppy.jpg"></a>
+										<h2>What They Need</h2>
+										<p>The AKC (American Kennel Club), presents a New Puppy Checklist: Gear You'll Need for Your New Dog. <a class="more" href="https://www.akc.org/expert-advice/puppy-information/new-puppy-checklist/">Read Here</a></p>
+									</li>
+									<li>
+										<a href="https://www.akc.org/akc-detection-dog-task-force/akc-pilot-detection-puppy-rearing-program/blogs/overview/what-is-a-working-dog/"><img src="images/1280px_LelandMelvin.jpg"></a>
+										<h2>What is a Working Dog?</h2>
+										<p>The AKC (American Kennel Club), presents an explanation on what a working dog is. <a class="more" href="https://www.akc.org/akc-detection-dog-task-force/akc-pilot-detection-puppy-rearing-program/blogs/overview/what-is-a-working-dog/">Read Here</a></p>
+									</li>
+									<li>
+										<a href="https://austinbatrefuge.org/"><img src="images/bat.png"></a>
+										<h2>Local Bat Rescue</h2>
+										<p>Local Austin group for bat rehabilitation, education, and conflict solution. <a class="more" href="https://austinbatrefuge.org/">Read Here</a></p>
+									</li>
+									<li>
+										<a href="https://www.rover.com/blog/service-dogs-disaster-relief/"><img src="images/herodog.jpg" ></a>
+										<h2>Dogs During Disasters</h2>
+										<p>What exactly is a disaster relief dog and what breeds make the best? <a class="more" href="https://www.rover.com/blog/service-dogs-disaster-relief/">Read Here</a></p>
+									</li>
+									<li>
+										<a href="https://bigskyjournal.com/working-dogs-nose-conservation/"><img src="images/rescuedog.jpg" ></a>
+										<h2>Shelter Dogs Turned Rescue Heros</h2>
+										<p>Big Sky Journal presents an insight on Working Dogs: A Nose for Conservation <a class="more" href="https://bigskyjournal.com/working-dogs-nose-conservation/">Read Here</a></p>
+									</li>
+									<li>
+										<a href="https://www.kktv.com/2025/04/16/dog-saves-toddler-who-wandered-into-desert-walked-7-miles-away-his-home/#:~:text=A%20dog%20named%20Buford%20is%20credited%20with,and%20crossed%20miles%20of%20rugged%20terrain%2C%20deputies"><img src="images/foundchild.jpg"></a>
+										<h2>Lost Child Found in Desert!</h2>
+										<p>Ranch dog outside Austin found missing child 7 miles from home in desert! <a class="more" href="https://www.kktv.com/2025/04/16/dog-saves-toddler-who-wandered-into-desert-walked-7-miles-away-his-home/#:~:text=A%20dog%20named%20Buford%20is%20credited%20with,and%20crossed%20miles%20of%20rugged%20terrain%2C%20deputies">Read Here</a></p>
+									</li>
+								</ul>
+						</div>
+								
+					    </div>
+				   </div>
+				  
+				{{> footer }}
+			
+			</div>
+		            
+		</div>
+
+				<script>
+				<!-- this checks the login cookie and validates that they are logged in-->
+					function hasLoginCookie() {
+						return document.cookie.includes('animalLoggedIn=true');
+					}
+
+					function updateAuthUI() {
+						const loggedIn = hasLoginCookie();
+						const authBtn = document.getElementById('authBtn');
+						const adminButtons = document.getElementById('admin-buttons');
+
+						if (!authBtn) return;
+					<!--flips the login button to show logout if the user is confirmed to be logged in with the cookie-->
+						if (loggedIn) {
+						authBtn.textContent = 'Logout';
+						authBtn.onclick = function (e) {
+							e.preventDefault();
+							logoutUser();
+						};
+
+						if (adminButtons) {
+							adminButtons.style.display = 'flex';
+						}
+						} else {
+						authBtn.textContent = 'Login';
+						authBtn.onclick = function (e) {
+							e.preventDefault();
+							goToLogin();
+						};
+
+						if (adminButtons) {
+							adminButtons.style.display = 'none';
+						}
+						}
+					}
+
+					<!-- routing directions for the buttons-->
+					function goToLogin() {
+						window.location.href = 'http://localhost:4200/login';
+					}
+
+					function logoutUser() {
+						localStorage.removeItem('animal-token');
+						document.cookie = 'animalLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+						window.location.href = 'http://localhost:3000/aac';
+					}
+
+					document.addEventListener('DOMContentLoaded', updateAuthUI);
+			</script>
+					
+		</body>
+</html>

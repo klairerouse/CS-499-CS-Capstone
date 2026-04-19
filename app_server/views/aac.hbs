@@ -1,0 +1,288 @@
+<!DOCTYPE html >
+<!--  Website template by freewebsitetemplates.com & modified by Klaire Rouse  -->
+<html>
+
+<head>
+	<title>Gravioso Salvare</title>
+	<meta  charset=iso-8859-1" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+	
+</head>
+
+<body>	
+	<div id="body">
+
+		
+<!-- this is the header -->
+		{{> header }}
+			
+		<div id="content">
+
+		
+		<!-- this is the table -->				
+		{{> table }}
+		 
+
+		<!-- this is the pie chart; guidelines on usage from https://cdn.jsdelivr.net -->
+
+		<div class="visual-container">
+  
+      <div class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
+
+			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+			<script>
+			let pieChart = null;
+
+			function buildOutcomeCounts(data) {
+				const counts = {};
+
+				data.forEach(animal => {
+				const key = animal.breed && animal.breed.trim()
+					? animal.breed
+					: "Unknown";
+
+				counts[key] = (counts[key] || 0) + 1;
+				});
+
+				return counts;
+			}
+
+			function updatePieChart(data) {
+          const counts = buildOutcomeCounts(data);
+
+          <!-- Convert to array and sort -->
+          let entries = Object.entries(counts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10); // top 10 breeds
+
+          const labels = entries.map(e => e[0]);
+          const values = entries.map(e => e[1]);
+
+          const ctx = document.getElementById('myChart');
+
+          if (!ctx) return;
+
+          if (pieChart) {
+            pieChart.data.labels = labels;
+            pieChart.data.datasets[0].data = values;
+            pieChart.update();
+            return;
+          }
+
+          pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Top Breeds',
+                data: values,
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'right'
+                }
+              }
+            }
+          });
+        }
+
+			window.updatePieChart = updatePieChart;
+			</script>
+							
+		<!-- this is the map; guidelines on usage from https://leafletjs.com/ -->
+   <div class="map-container">
+    <div id="map"></div>
+    </div>
+  </div>
+	
+
+    <link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+
+
+    <script>
+      let map;
+      let markerLayer;
+      let currentMapData = [];
+      const MIN_MARKER_ZOOM = 12;
+
+      function initializeMap() {
+        map = L.map('map').setView([30.2672, -97.7431], 10);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        markerLayer = L.layerGroup().addTo(map);
+
+        map.on('zoomend', refreshMapMarkers);
+      }
+
+      function refreshMapMarkers() {
+        if (!map || !markerLayer) return;
+
+        markerLayer.clearLayers();
+
+        if (map.getZoom() < MIN_MARKER_ZOOM) {
+          return;
+        }
+
+        const validAnimals = currentMapData.filter(animal =>
+          animal.location_lat !== null &&
+          animal.location_lat !== undefined &&
+          animal.location_long !== null &&
+          animal.location_long !== undefined &&
+          !isNaN(Number(animal.location_lat)) &&
+          !isNaN(Number(animal.location_long))
+        );
+
+        validAnimals.forEach(animal => {
+          const lat = Number(animal.location_lat);
+          const lng = Number(animal.location_long);
+
+          const marker = L.marker([lat, lng]);
+
+          marker.bindPopup(`
+            <strong>Animal ID:</strong> ${animal.animal_id || "Unknown"}<br>
+            <strong>Name:</strong> ${animal.name || "Unknown"}
+          `);
+
+          marker.addTo(markerLayer);
+        });
+      }
+
+      function updateMapMarkers(data) {
+        currentMapData = data || [];
+
+        const validAnimals = currentMapData.filter(animal =>
+          animal.location_lat !== null &&
+          animal.location_lat !== undefined &&
+          animal.location_long !== null &&
+          animal.location_long !== undefined &&
+          !isNaN(Number(animal.location_lat)) &&
+          !isNaN(Number(animal.location_long))
+        );
+
+        if (validAnimals.length === 0) {
+          markerLayer.clearLayers();
+          map.setView([30.2672, -97.7431], 10);
+          return;
+        }
+
+        const bounds = validAnimals.map(animal => [
+          Number(animal.location_lat),
+          Number(animal.location_long)
+        ]);
+
+        map.fitBounds(bounds, { padding: [30, 30] });
+
+        refreshMapMarkers();
+      }
+
+      initializeMap();
+      window.updateMapMarkers = updateMapMarkers;
+    </script>				
+				  
+	{{> footer }}
+
+
+    <script>
+    <!-- this checks the login cookie and validates that they are logged in-->
+      function hasLoginCookie() {
+        return document.cookie.includes('animalLoggedIn=true');
+      }
+
+      function updateAuthUI() {
+        const loggedIn = hasLoginCookie();
+        const authBtn = document.getElementById('authBtn');
+        const adminButtons = document.getElementById('admin-buttons');
+
+        if (!authBtn) return;
+        <!--flips the login button to show logout if the user is confirmed to be logged in with the cookie-->
+        if (loggedIn) {
+          authBtn.textContent = 'Logout';
+          authBtn.onclick = function (e) {
+            e.preventDefault();
+            logoutUser();
+          };
+
+          if (adminButtons) {
+            adminButtons.style.display = 'flex';
+          }
+        } else {
+          authBtn.textContent = 'Login';
+          authBtn.onclick = function (e) {
+            e.preventDefault();
+            goToLogin();
+          };
+
+          if (adminButtons) {
+            adminButtons.style.display = 'none';
+          }
+        }
+      }
+      <!-- routing directions for the buttons-->
+      function goToLogin() {
+        window.location.href = 'http://localhost:4200/login';
+      }
+
+      function logoutUser() {
+        localStorage.removeItem('animal-token');
+        document.cookie = 'animalLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        window.location.href = 'http://localhost:3000/aac';
+      }
+
+      function goToAdd() {
+        window.location.href = 'http://localhost:4200/add-animal';
+      }
+
+      function goToEdit() {
+        window.location.href = 'http://localhost:4200/edit-animal';
+      }
+
+      function goToDelete() {
+        window.location.href = 'http://localhost:4200/delete-animal';
+      }
+
+      document.addEventListener('DOMContentLoaded', updateAuthUI);
+
+      function focusMapOnAnimal(animal) {
+      if (!map || !animal) return;
+
+      const lat = Number(animal.location_lat);
+      const lng = Number(animal.location_long);
+
+      if (isNaN(lat) || isNaN(lng)) return;
+
+      map.setView([lat, lng], 15);
+
+      markerLayer.clearLayers();
+
+      const marker = L.marker([lat, lng]).addTo(markerLayer);
+
+      marker.bindPopup(`
+        <strong>Animal ID:</strong> ${animal.animal_id || "Unknown"}<br>
+        <strong>Name:</strong> ${animal.name || "Unknown"}
+      `).openPopup();
+    }
+
+    window.focusMapOnAnimal = focusMapOnAnimal;
+    </script>
+
+</body>
+</html>
